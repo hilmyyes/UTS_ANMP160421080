@@ -1,5 +1,7 @@
 package com.example.HobbyArknight_160421080.view
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -82,27 +84,25 @@ class RegisterFragment : Fragment() {
 
 
         viewModel.successLD.observe(viewLifecycleOwner, Observer {
-            if (it != null){
+            if (it != false){
                 Toast.makeText(this.context, "Akun berhasil dibuat, silahkan login ", Toast.LENGTH_SHORT).show()
                 val action = RegisterFragmentDirections.signinFragmentAction()
                 Navigation.findNavController(requireView()).navigate(action)
             }
             else{
-                Toast.makeText(this.context, "Register failed", Toast.LENGTH_SHORT).show()
+                val dialog = AlertDialog.Builder(activity)
+                dialog.setTitle("Informasi")
+                dialog.setMessage("Gagal mendaftarkan akun.\nUsername telah terdaftar, Silahkan Login")
+                dialog.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+                })
+                dialog.create().show()
+
+//                Toast.makeText(this.context, "Akun gagal, terdapat username yang sama", Toast.LENGTH_SHORT).show()
+                val action = RegisterFragmentDirections.signinFragmentAction()
+                Navigation.findNavController(requireView()).navigate(action)
             }
         })
     }
-
-//        viewModel.successLD.observe(viewLifecycleOwner, Observer {
-//            if (it != false){
-//                Toast.makeText(this.context, "Akun berhasil dibuat, silahkan login ", Toast.LENGTH_SHORT).show()
-//                val action = RegisterFragmentDirections.signinFragmentAction()
-//                Navigation.findNavController(requireView()).navigate(action)
-//            }
-//            else{
-//                Toast.makeText(this.context, "Register failed", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
 
 }

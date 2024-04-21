@@ -62,7 +62,8 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if(user != null)
         {
-            Toast.makeText(this, "Please Click Logout", Toast.LENGTH_SHORT).show()
+
+            Toast.makeText(this, "Logout Terlebih Dahulu", Toast.LENGTH_SHORT).show()
         }
         else
         {

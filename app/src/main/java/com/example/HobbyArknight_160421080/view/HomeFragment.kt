@@ -30,6 +30,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as MainActivity).EnableNavBar()
+
         viewModel = ViewModelProvider(this).get(NewsListViewModel::class.java)
         viewModel.refresh()
 

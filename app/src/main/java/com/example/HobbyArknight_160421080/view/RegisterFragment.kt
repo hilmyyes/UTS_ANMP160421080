@@ -14,6 +14,8 @@ import com.example.HobbyArknight_160421080.databinding.FragmentRegisterBinding
 import com.example.HobbyArknight_160421080.model.User
 import com.example.HobbyArknight_160421080.view.MainActivity.Companion.user
 import com.example.HobbyArknight_160421080.viewModel.UserViewModel
+import org.json.JSONObject
+
 
 class RegisterFragment : Fragment() {
     private lateinit var bind: FragmentRegisterBinding
@@ -30,6 +32,8 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).DisableNavBar()
+
 
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
@@ -53,8 +57,6 @@ class RegisterFragment : Fragment() {
             } else if (bind.txtPasswordRegister.text.toString().trim().isEmpty()) {
                 bind.txtPasswordRegister.error = "Password cannot be empty"
             } else {
-
-
                 viewModel.register(user)
                 observeViewModel()
             }
@@ -77,8 +79,10 @@ class RegisterFragment : Fragment() {
 //            }
 //        }
 
+
+
         viewModel.successLD.observe(viewLifecycleOwner, Observer {
-            if (it != false){
+            if (it != null){
                 Toast.makeText(this.context, "Akun berhasil dibuat, silahkan login ", Toast.LENGTH_SHORT).show()
                 val action = RegisterFragmentDirections.signinFragmentAction()
                 Navigation.findNavController(requireView()).navigate(action)
@@ -88,5 +92,17 @@ class RegisterFragment : Fragment() {
             }
         })
     }
+
+//        viewModel.successLD.observe(viewLifecycleOwner, Observer {
+//            if (it != false){
+//                Toast.makeText(this.context, "Akun berhasil dibuat, silahkan login ", Toast.LENGTH_SHORT).show()
+//                val action = RegisterFragmentDirections.signinFragmentAction()
+//                Navigation.findNavController(requireView()).navigate(action)
+//            }
+//            else{
+//                Toast.makeText(this.context, "Register failed", Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//    }
 
 }

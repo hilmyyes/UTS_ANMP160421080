@@ -31,6 +31,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as MainActivity).DisableNavBar()
+
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         bind.btnLogin.setOnClickListener {
